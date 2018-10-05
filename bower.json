@@ -2,7 +2,8 @@
   "name": "mysite",
   "dependencies": {
     "jquery": "^3.3.1",
-    "swiper": "^4.4.1"
+    "swiper": "^4.4.1",
+    "perfect-scrollbar": "^0.8.1"
   },
   "authors": [
     "Alexey Kovakin <qwazik21@gmail.com>"

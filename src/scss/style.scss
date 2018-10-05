@@ -1142,21 +1142,7 @@ body{
 /*-- END: helpers --*/
 
 /*-- START: media --*/
-.mobile-nav-btn{
-	background: none;
-	border:none;
-	padding:0;
-	span{
-		width: 26px;
-		height: 4px;
-		border-radius: 4px;
-		display: block;
-		background: $primary;
-		&:not(:first-child){
-			margin-top: 4px;
-		}
-	}
-}
+
 @media screen and (min-width: 1631px){	
 	.container_big{
 		max-width: 1600px;
@@ -1239,6 +1225,101 @@ body{
 	}
 }
 /*-- END: media --*/
+.mobile-nav{
+	padding: 0;
+	margin: 0;
+	position: fixed;
+	z-index: 20;
+	box-shadow: 0 0 30px grey;
+	top:0;
+	left: 0;
+	background: white;
+	height: 100%;
+	overflow: auto;
+	width: 260px;
+	transition: transform .3s;
+	&-btn{
+		background: none;
+		border:none;
+		padding:0;
+		span{
+			width: 26px;
+			height: 4px;
+			border-radius: 4px;
+			display: block;
+			background: $primary;
+			transition: all .3s;
+			&:not(:first-child){
+				margin-top: 4px;
+			}
+		}
+		&.active{
+			span{
+				&:nth-child(1){
+					transform: translate(0px,8px) rotate(45deg);
+				}
+				&:nth-child(2){
+					opacity: 0;
+				}
+				&:nth-child(3){
+					transform: translate(0px,-8px) rotate(-45deg);
+				}
+			}
+		}
+	}
+	@media screen and (min-width: 992px){
+		display: none;
+	}
+	&:not(.active){transform: translate(-150%,0)}
+	&__parent{
+		position: relative;
+	}
+	&__list,&__dropdown{
+		@extend .ns;
+		&-toggler{
+			background:none;
+			position: absolute;
+			padding: 5px;
+			border:none;
+			right: 2rem;
+			top: 1rem;
+			&:before{
+				content: '';
+				display: block;
+				border: 5px solid transparent;
+				border-top-color: $black;
+				border-top-width: 7px;
+				transform: translate(0,3px);
+			}
+		}
+	}
+	&__dropdown:not(.active){
+		display: none;
+	}
+	&__dropdown{
+		padding-left: 1rem;
+		font-size: 0.9em;
+		.mobile-nav__link{
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+		}
+	}
+	&__section{
+		padding: 1rem 0;
+		&:not(:first-child){
+			border-top: 1px solid rgba(black ,.3);
+		}
+		&_1{
+			text-transform: uppercase;
+		}
+	}
+	&__link{
+		display: block;
+		padding: 1rem 3rem;
+		text-decoration: none;
+		color: inherit;
+	}
+}
 
 @media screen and (max-width: 992px){
 	body{
@@ -1250,7 +1331,7 @@ body{
 		left: 0;
 		right: 0;
 		box-shadow: 0 0 30px grey;
-		z-index: 10;
+		z-index: 15;
 		background: white;
 	
 	}

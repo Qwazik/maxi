@@ -96,6 +96,70 @@ $(function(){
     }
   ];
 
+  /*-- START: mobile nav --*/
+  var MOBILE_NAV = (function(){
+    var mobileNavClass = 'mobile-nav';
+    var menus = [
+      '.header-nav',
+      '.main-nav'
+    ];
+    if(!menus.length) return false;
+    var cnt = $('<div/>');
+    
+    for(var i = 0; i<menus.length; i++){
+      var section = $('<div/>').addClass(mobileNavClass+'__section '+mobileNavClass+'__section_'+i);
+      section.append(getItems(menus[i]));
+      cnt.append(section);
+    }
+    cnt.addClass(mobileNavClass);
+
+    $('body').append(cnt);
+
+    $('.mobile-nav-btn').click(function(){
+      $('.'+mobileNavClass).toggleClass('active');
+      $(this).toggleClass('active');
+    });
+    
+
+    function getItems(selector){
+      var clone = $(selector).clone();
+      return clearClasses(clone);
+    }
+
+    function clearClasses(element){
+      var depth = 0;
+      $(element).removeClass().addClass(mobileNavClass+'__list');
+      clear($(element).children());
+
+      function clear(childrens){
+        depth++;
+        $(childrens).removeClass();
+        $(childrens).each(function(){
+          var $this = $(this);
+          if($this.is(':empty')) $(this).remove();
+          if($this.is('li')) $(this).addClass(mobileNavClass+'__item');
+          if($this.is('a')) $(this).addClass(mobileNavClass+'__link');
+          if($this.is('ul') && depth>0) {
+            var dropdownBtn = $('<button/>').addClass(mobileNavClass+'__dropdown-toggler');
+            var parentLi = $(this).closest('li');
+            dropdownBtn.click(function(){
+              $this.toggleClass('active');
+            });
+            parentLi.append(dropdownBtn);
+
+            $(this).addClass(mobileNavClass+'__dropdown');
+            $(parentLi).addClass(mobileNavClass+'__parent');
+          };
+        });
+        if($(childrens).children().length) clear($(childrens).children());
+      }
+      return element;
+    }
+  }());
+  
+  /*-- END: mobile nav --*/
+  
+
   /*-- START: videos --*/
   var VIDEOS = (function(){
     var cnt = DOM.videos;

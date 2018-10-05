@@ -15,6 +15,8 @@ const zip = require('gulp-zip');
 const gulpIf = require('gulp-if');
 const spritesmith = require('gulp.spritesmith');
 const del = require('del');
+const ghPages = require('gulp-gh-pages');
+
 const reload = browserSync.reload;
 
 const buildPath = 'build';
@@ -276,7 +278,7 @@ gulp.task('build:sprite', function (callback) {
 /*-------------------------------------------------*/
 gulp.task('clean', function(callback){
 	cached.caches = {};
-	del([buildPath+'/*', '!build/libs', '!build/icomoon']).then(paths => {
+	del([buildPath+'/*', '!assets/libs']).then(paths => {
     	callback();
     });
 	
@@ -289,12 +291,19 @@ gulp.task('clean', function(callback){
 	    	callback();
 	    });
 	}else{
-		del([buildPath+'/*', '!build/libs']).then(paths => {
+		del([buildPath+'/*', '!assets/libs']).then(paths => {
 	    	callback();
 	    });
 	}
 });
 
+/*-------------------------------------------------*/
+/*  gh-pages
+/*-------------------------------------------------*/
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
+});
 
 /*-------------------------------------------------*/
 /*  build
