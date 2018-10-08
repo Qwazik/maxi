@@ -1,0 +1,39 @@
+extends _template
+
+block main
+    .contacts-map
+        .contacts-map__map#map
+        .contacts-place
+            .contacts-place__header.fz-m2.fw-l.mb-2 Фактический адрес организации
+            ul.contacts-place__list
+                li.contacts-place__item
+                    .contacts-place__icon: i.icm.icm-placemark
+                    p.fw-sb.fz-m1.mb-1 г. Брянск, пр-т Московский,<br> д. 99с
+                    p.fz Понедельник-Пятница: 09-00 до 18-00 <br> суббота: 09-00 до 14-00 <br> Воскресенье - выходной
+                li.contacts-place__item
+                    .contacts-place__icon: i.icm.icm-phone
+                    ul.ns
+                        li.fw-sb: <span class="text-muted">+7 (4832)</span> 630-430
+                        li.fw-sb: <span class="text-muted">+7 (4832)</span> 631-323
+                        li.fw-sb: <span class="text-muted">+7 (999)</span> 705-42-29
+                li.contacts-place__item
+                    .contacts-place__icon: i.icm.icm-envelope
+                    a(href="mailto:maxi-okna@mail.ru").text-primary maxi-okna@mail.ru        
+    .contacts-info.py-9
+        .container
+            .row
+                .col-12.col-md-6.mb-3.mb-md-0
+                    p.fz-m3.fw-sb.mb-1 Платежные реквизиты
+                    p Получатель: Общество с ограниченной ответственностью «МАКСИ-ОКНА»
+                    p Номер расчетного счета: 40702810802390000316
+                    p Банк получателя: ПАО «БАНК УРАЛСИБ» г. Москва
+                    p БИК: 044525787
+                    p Корреспондентский счет: 30101810100000000787
+                .col-12.col-md-6
+                    p.fz-m3.fw-l.mb-1 Регистрационные данные
+                    p Общество с Ограниченной ответственностью «МАКСИ-ОКНА»
+                    p Адрес: г. Брянск, пр-т. Московский 99
+                    p ИНН 3235017174
+                    p КПП 325701001
+                    p ОГРН 1023201289033
+                    p ОКВЭД 22.23.

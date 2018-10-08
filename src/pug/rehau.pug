@@ -1,0 +1,114 @@
+extends _template
+
+block main
+    .header-page(style="background-image: url(img/rehau.jpg)")
+        .container
+            .header-page__content
+                .header-page__breadcrumbs
+                    ul.breadcrumbs
+                        li.breadcrumbs__item Главная
+                        li.breadcrumbs__item Пластиковые окна
+                        li.breadcrumbs__item Окна REHAU
+                .header-page__title Оконные системы REHAU
+                .header-page__desc Компания МАКСИ-ОКНА одна из ведущих компаний на территории Брянска и Брянской области. Наши специалисты на протяжении 13 лет радуют клиентов своей работой и качеством установленных остеклений. Мы работаем с разными видами профильных ПВХ систем  REHAU, MONTBLANC, BRUSBOX, а также с алюминиевыми системами. Для надежной работы окон и дверей мы используем комплектующие и фурнитуру компаний VHS, MACO, Siegenia Favorite, ROTO.
+                .header-page__footer Мы знаем, что такое быстро и качественно, поэтому мы та компания, которая советует добрым друзьям и хорошим соседям!
+    section.content-section.my-9
+        .container
+            .h.h_big.ta-left.mb-3 Преимущества оконных систем Rehau
+            p Компания «Макси-Окна» предлагает окна немецкого производителя REHAU: эргономичный дизайн, безупречное качество, новейшие технологии, гарантия более 50 лет. Инновационные технологии REHAU известны в Европе и во всем мире с 1948 года. Компания Макси - окна предлагает Вам широкий выбор оконных систем от классической трехкамерной REHAU BLITZ NEW, до уникальной  GENEO, вобравших в себя все важнейшие характеристики существующих на рынке оконных решений. REHAU работает только с экологически чистыми материалами, которые не загрязняют окружающую среду. Продукция сертифицирована и соответствует всем требованиям к качеству. Производитель большое внимание уделяет деталям – благодаря этому компания стала лидером по изготовлению оконных систем, зимних садов, входных дверей.
+            p Окна REHAU обеспечивают:
+            ul.ul.ul_rect
+                li <b>Экономию на отоплении</b> - гарантировано высокий уровень герметизации помещения, благодаря чему сохраняется тепло
+                li <b>Защиту от шума</b> - все типы профилей REHAU обеспечивают разный уровень звукоизоляции
+                li <b>Экономию времени и сил</b> - за ними практически не нужно ухаживать. Не требуют окрашивания, устойчивы к неблагоприятным воздействиям окружающей среды, их легко мыть. Окна не выгорают на солнце
+                li <b>Эстетичный и стильный вид</b> - эти окна будут оставаться белоснежными на протяжении многих лет безотказной службы.
+            p По своим техническим и эксплуатационным характеристикам ПВХ-профиль REHAU считается одним из лучших среди оконных профилей, представленных на российском рынке.
+    .container.py-3
+        .h.h_big.ta-left.mb-4  Пластиковые окна
+        .row
+            mixin product(img, name, desc,price)
+                .col-12.col-md-6
+                    .product
+                        .product__image
+                            img(src=img, alt=name).img-responsive
+                        .product__info.row
+                            .col-auto
+                                .product__title=name
+                                .product__desc=desc
+                            .col-auto
+                                .product__price=price
+                        .product__footer
+                            a(href="#").btn.btn_primary.product__btn Заказать
+            +product('img/2.png', 'Двухстворчатое окно', 'Размер 1500x1500 мм', 'от 5 300 руб.')
+            +product('img/3.png', 'Трехстворчатое окно', 'Размер 1800x1500 мм', 'от 7 650 руб.')
+            +product('img/5.png', 'Балконная дверь', 'Размер 700x1950 мм', 'от 4 800 руб.')
+            +product('img/4.png', 'Балконный блок', 'Размер 2150x1950 мм', 'от 7 000 руб.')
+    .bg-muted.py-9
+        .container 
+            .h.h_big.ta-center.mb-4.ta-left Виды профилей Rehau
+            .profiles.tabs
+                .profiles-main
+                    .tabs-body
+                        -for(var i = 0;i<5;i++)
+                            -var className = '';
+                            -if(i===0) className = 'active';
+                            .profiles-main__item(class=className)
+                                .profiles-item
+                                    .profiles-item__image: img(src="img/profiles.jpg", alt="").img-responsive
+                                    .profiles-item__info
+                                        .profiles-item__title Blitz NEW
+                                        .profiles-item__desc
+                                            .spoiler.mb-3
+                                                ul.ul.ul_rect.spoiler-list(data-items="4").mb-2
+                                                    li Системная глубина/число камер 60 мм/3 камеры
+                                                    li Толщина остекления от 4 мм до 32 мм
+                                                    li Теплоизоляция Rопр = 0.64 м2°С/Вт
+                                                    li Цвет уплотнения: черный, серый, белый
+                                                    li Установка усиленных приборов запирания благодаря смещению оси приборного паза на 13 мм
+                                                    li Lorem ipsum dolor sit amet.
+                                                    li Repellat, molestiae obcaecati! Tempore, adipisci!
+                                                    li Provident corrupti id laborum reiciendis?
+                                                    li Ratione maiores eos esse ipsum?
+                                                    li Porro quaerat explicabo fugit saepe.
+                                                .ml-4.button.spoiler-btn: u.text-primary Показать все преимущества
+                                            p: i Рекомендуется при остеклении балконов и лоджий, а так же выходов на балконы и лоджии, в промышленных зданиях.
+                .profiles-nav
+                    .profiles-nav__title Выберите профиль
+                    ul.profiles-nav__list.tabs-nav
+                        li.profiles-nav__item.active Rehau Blitz NEW
+                        li.profiles-nav__item Rehau Crazio
+                        li.profiles-nav__item Rehau Delight Design
+                        li.profiles-nav__item Rehau Brilliant Design
+                        li.profiles-nav__item Rehau Geneo
+    .price-online
+        .container.container_big
+            .row.align-items-center
+                .col
+                    .price-online__title Расчет стоимости онлайн
+                    .price-online__text
+                        p Конечная цена складывается из огромного количества самых разных факторов, и именно поэтому очень сложно самостоятельно произвести расчет стоимости окна.
+                        p Для получения предварительной оценочной стоимости остекления предлагаем вам воспользоваться онлайн-калькулятором на сайте.
+                    a(href="#").btn.btn_primary Рассчитать стоимость остекления
+                .col.price-online__image
+                    img(src="img/price-online.png", alt="").img-responsive
+    .py-7
+        .container
+            .h.h_big.ta-left Дополнительные опции для окон
+            .row
+                mixin option-item(img, name)
+                    .col-12.col-md-6
+                        .option-item
+                            a(href="#").option-item__image: img(src=img, alt="").img-responsive
+                            a(href="#").option-item__name=name
+                +option-item('img/opt1.jpg','Нестандартные окна')
+                +option-item('img/opt2.jpg','Ламинация окон')
+                +option-item('img/opt3.jpg','Москитная сетка')
+                +option-item('img/opt4.jpg','Декоративная раскладка')
+    .zamer-callback
+        .container
+            .row.align-items-end.flex-nowrap
+                .col.zamer-callback__text
+                    .zamer-callback__title.h.h_big.mb-2 Хотите сделать покупку максимально выгодной?
+                    .zamer-callback__desc.mb-3 Выбрать подходящий профиль для остекления дома или квартиры помогут Вам опытные специалисты компании «МАКСИ-ОКНА». Получите у нашего менеджера Быстрый и честный расчет окон по телефону (4832) 630-430; 8-910-333-32-29 или воспользуйтесь специальной формой на сайте для бесплатного вызова замерщика.
+                    a(href="#").btn.btn_primary Вызвать замерщика
+                .col-auto.d-none.d-md-block: img(src="img/zamer-callback.jpg", alt="").zamer-callback__image

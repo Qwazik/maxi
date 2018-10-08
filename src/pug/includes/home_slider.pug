@@ -1,0 +1,27 @@
+// START: home slider
+section.home-slider.swiper-container
+    .swiper-wrapper
+        .home-slider__item(style="background-image:url(img/home-fs.jpg)").swiper-slide
+            .container
+                .home-slider__content
+                    .home-slider__title
+                        p Узнайте стоимость пластиковых <br> окон с точностью до 95%
+                    .home-slider__desc
+                        p=i
+                        p любой формы и размера
+                    .home-slider__btn
+                        a(href="#").btn.btn_primary Бесплатный вызов замерщика
+        .home-slider__item(style="background-image:url(img/house.jpg)").swiper-slide.home-slider__item_mask
+            .container
+                .home-slider__content
+                    .home-slider__title
+                        p Узнайте стоимость пластиковых <br> окон с точностью до 95%
+                    .home-slider__desc
+                        p=i
+                        p='любой формы и размера'.split('').reverse().join('')
+                    .home-slider__btn
+                        a(href="#").btn.btn_primary Бесплатный вызов замерщика
+    .swiper-pagination.swiper-pagination-white
+    .swiper-button-next.swiper-button-white
+    .swiper-button-prev.swiper-button-white
+// END: home slider

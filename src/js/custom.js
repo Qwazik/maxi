@@ -6,6 +6,7 @@ $(function(){
     partnersSlider: '.brands__list .swiper-container',
     reviewsSlider: '.reviews .swiper-container',
     scrollbar: '.js-scrollbar',
+    tabs: '.tabs'
   };
 
   var sliders = [
@@ -93,8 +94,79 @@ $(function(){
           }
         }
       }
+    },
+
+    {
+      selector: '.whywe-body',
+      params: {
+        spaceBetween: 40,
+        slidesPerView: 1,
+        effect: 'slide',
+        loop: true,    
+        autoplay: {
+          delay: 4000
+        }
+      },
+      functions: function(initSlider){
+        whyWePagination(initSlider);
+      }
     }
   ];
+
+  function whyWePagination(initSlider){
+    console.log(initSlider);
+    var nav = $('.whywe').find('[role="navItem"]');
+    nav.eq(0).addClass('active');
+
+    nav.click(function(){
+      nav.removeClass('active');
+      initSlider.slideToLoop($(this).parent().index())
+    });
+    initSlider.on('slideChange', function(){
+      nav.removeClass('active');
+      nav.eq(initSlider.realIndex).addClass('active');
+      console.log(initSlider.realIndex);
+    });
+  }
+
+  /*-- START: tabs --*/
+  var TABS = (function(){
+    var cnt = DOM.tabs;
+    
+    function initTabs(tabs){
+      var body = tabs.find('.tabs-body');
+      var nav = tabs.find('.tabs-nav');
+      nav.children().click(function(){
+        nav.children().removeClass('active');
+        $(this).addClass('active');
+        body.children().removeClass('active');
+        body.children().eq($(this).index()).addClass('active');
+      });
+    }
+    
+    return {
+      init: function(){
+        $(cnt).each(function(){
+          if($(this).length) initTabs($(this));
+        });
+      }
+    }
+  }());
+
+  TABS.init();
+  /*-- END: tabs --*/
+  
+
+  /*-- START: calc --*/
+  var CALC = (function(){
+    return {
+      init: function(){
+
+      }
+    }
+  }());
+  /*-- END: calc --*/
+  
 
   /*-- START: mobile nav --*/
   var MOBILE_NAV = (function(){
@@ -158,7 +230,7 @@ $(function(){
   }());
   
   /*-- END: mobile nav --*/
-  
+
 
   /*-- START: videos --*/
   var VIDEOS = (function(){
@@ -216,17 +288,94 @@ $(function(){
   }());
   /*-- END: category l --*/
   
+  /*-- START: spoiler --*/
+  var SPOILER = (function(){
+    var cnt = $('.spoiler');
+    var active = false;
+
+    function initSpoiler(spoiler){
+      var body = spoiler.find('.spoiler-list');
+      var dataItems = $(body).data('items');
+      var btn = spoiler.find('.spoiler-btn');
+
+      if(dataItems){
+        hideItems(body, dataItems);
+        btn.click(function(){
+          if(active){
+            hideItems(body, dataItems);
+          }else{
+            showItems(body);
+          }
+          return false;
+        });
+      }
+    }
+
+    function hideItems(body, dataItems){
+      body.children().each(function(i,e){
+        if(i>dataItems) $(this).hide();
+      });
+      active = false;
+    }
+
+    function showItems(body){
+      body.children().slideDown();
+      active=true;
+    }
+
+    return {
+      init: function(){
+        $(cnt).each(function(){
+          if($(this).length) initSpoiler($(this));
+        });
+      }
+    }
+  }());
+
+  
+  /*-- END: spoiler --*/
+  
+
   
   /*-- START: init --*/
   if($(DOM.videos).length) VIDEOS.init();
   if($(DOM.categoryL).length) CATEGORYL.init();
   if($(DOM.scrollbar).length) $('.js-scrollbar').perfectScrollbar();
+  SPOILER.init();
 
   for(var s = 0; s<sliders.length; s++){
     if($(sliders[s].selector).length){
       var initSlider = new Swiper(sliders[s].selector, sliders[s].params);
+      if(sliders[s].functions) sliders[s].functions(initSlider);
     }
   }
   /*-- END: init --*/
   
 });
+
+ymaps.ready(init);
+
+function init() {
+    if(!$('#map').length) return false;
+    var myMap = new ymaps.Map('map', {
+        center: [53.20940057121059,34.458385999999976],
+        zoom: 17,
+        controls: []
+    }),
+
+    myPlacemark = new ymaps.Placemark([53.20940057121059,34.458085999999976], {
+        iconCaption: 'Московский проспект, 99'
+    }, {
+        preset: 'islands#blueCircleDotIconWithCaption',
+    });
+
+    myMap.margin.addArea({
+      left: 0,
+      top: 0,
+      width: $('.contacts-place').width(),
+      height: '100%'
+    });
+    console.log(myMap.margin.getMargin()); 
+    myMap.geoObjects.add(myPlacemark);
+    
+}

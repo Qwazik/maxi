@@ -1,0 +1,80 @@
+extends _template
+
+block main
+	.calc
+		.container.py-9
+			form(action="")
+				.h.h_big.ta-left Калькулятор пластиковых окон
+				.calc-step
+					.calc-step__title 1. Выберите тип окна
+					.calc-step__body
+						mixin calcType(img, name)
+							.calc-col.mr-2: label.calc-type
+								.calc-type__image: img(src=img, alt="").calc-type__img
+								.calc-type__name
+									.form-label
+										label.radio.form-label__input
+											input(type="radio" name="calc_type").radio__input
+											span.radio__ico
+											span.radio__name
+										.form-label__name=name
+						+calcType('img/1.png','Одностворчатое окно')
+						+calcType('img/2.png','Двустворчатое окно')
+						+calcType('img/3.png','Трёхстворчатое окно')
+						+calcType('img/5.png','Балконный выход')
+						+calcType('img/4.png','Лоджии')
+				.calc-step
+					.calc-step__title 2. Выберите тип профиля 
+					.calc-step__body
+						mixin formlabel(name)
+							.calc-col
+								label.form-label
+									label.radio.form-label__input
+										input(type="radio" name="calc_type").radio__input
+										span.radio__ico
+										span.radio__name
+									.form-label__name!=name
+						mixin formlabelcheckbox(name)
+							.calc-col
+								label.form-label
+									label.checkbox.form-label__input
+										input(type="checkbox" name="calc_type").checkbox__input
+										span.checkbox__ico
+										span.checkbox__name
+									.form-label__name!=name
+						+formlabel('<b class="text-dark">Стандарт</b>  Rehau Blitz')
+						+formlabel('<b class="text-dark">Комфорт</b>  Rehau Delight')
+						+formlabel('<b class="text-dark">Премиум</b>  Rehau Brillant')
+						+formlabel('<b class="text-dark">Эксклюзив</b> Rehau Geneo')
+				.calc-step
+					.calc-step__title 3. Габариты окна
+					.calc-step__body
+						.calc-col
+							.input-block
+								.input-block__title Высота, мм
+								.input-block__input
+									input(type="text" placeholder="1250").input
+						.calc-col
+							.input-block
+								.input-block__title Высота, мм
+								.input-block__input
+									input(type="text" placeholder="1250").input
+				.calc-step
+					.calc-step__title 4. Нужна ли установка окон
+					.calc-step__body
+						+formlabel('Да, мне нужна установка окон')
+						+formlabel('Нет, спасибо')
+				.calc-step
+					.calc-step__title 5. Выберите опцию к стеклопакету
+					.calc-step__body
+						+formlabelcheckbox('Да, мне нужна установка окон')
+						+formlabelcheckbox('Нет, спасибо')
+				.calc-step
+					.calc-step__title 6. Выберите варианты работы окна
+					.calc-step__body
+						+formlabel('Глухое')
+						+formlabel('Поворотное')
+						+formlabel('Поворотно-откидочное')
+				.calc-step
+					button(type="submit").btn.btn_primary.btn_long Заказать
+							

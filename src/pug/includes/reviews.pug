@@ -1,0 +1,19 @@
+// START: reviews
+.reviews.py-9
+    .h.h_big Нас рекомендуют
+    .container
+        .swiper-container
+            .reviews__list.swiper-wrapper
+                -for(var i=0;i<5;i++)
+                    .reviews__item.swiper-slide
+                        .review
+                            .review__photo: img(src="img/review.jpg", alt="")
+                            .review__name Галина Власенко
+                            .review__desc Установили окна за три часа. Аккуратно убрали все после себя, вынесли мусор.
+                            .review__rating.rating
+                                .rating__item
+                                .rating__item
+                                .rating__item
+                                .rating__item
+                                .rating__item
+// END: reviews
