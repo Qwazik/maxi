@@ -71,10 +71,6 @@ $(function(){
         autoplay: {
           delay: 4000
         },
-        navigation: {
-          nextEl: '#brandsNext',
-          prevEl: '#brandsPrev',
-        },
         breakpoints: {
           991:{
             slidesPerView: 4,
@@ -341,6 +337,7 @@ $(function(){
   if($(DOM.videos).length) VIDEOS.init();
   if($(DOM.categoryL).length) CATEGORYL.init();
   if($(DOM.scrollbar).length) $('.js-scrollbar').perfectScrollbar();
+  $('.fancybox').fancybox();
   SPOILER.init();
 
   for(var s = 0; s<sliders.length; s++){
