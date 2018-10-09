@@ -1,0 +1,96 @@
+extends _template
+
+block main
+	// START: home-about
+	section.home-about.header-page
+		.container
+			.header-page__breadcrumbs
+				ul.breadcrumbs
+					li.breadcrumbs__item: a(href="#").breadcrumbs__link Главная
+					li.breadcrumbs__item: a(href="#").breadcrumbs__link Остекление коттеджей и загородных домов
+		.container.container_big.home-about__top
+			h2.h.h_big.h_light.home-about__title Остекление коттеджей и <br> загородных домов
+			.row
+				.col.col-sm-6.home-about__left
+					.home-about-feature
+						.home-about-feature__title теплоизоляция и защита <br> помещений от внешних <br> шумов;
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_1
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+					.home-about-feature
+						.home-about-feature__title замена старых деревянных <br> рам стильными стеклопакетами;
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_2
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+					.home-about-feature
+						.home-about-feature__title качественное остекление <br> новой частной постройки
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_3
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+				.col.col-sm-6.home-about__right
+					.home-about-feature
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_reverse.home-about-feature-arrow_4
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+						.home-about-feature__title установка окон и дверей <br> оригинальной конфигурации (арки, трапеции, <br> круги);
+					.home-about-feature
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_reverse.home-about-feature-arrow_5
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+						.home-about-feature__title индивидуальное <br> декоративное оформление;
+					.home-about-feature
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_reverse.home-about-feature-arrow_6
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+						.home-about-feature__title витражи, тонировка;
+					.home-about-feature
+						.home-about-feature-arrow-container
+							.home-about-feature-arrow.home-about-feature-arrow_reverse.home-about-feature-arrow_7
+								.home-about-feature-arrow__start
+								.home-about-feature-arrow__end
+						.home-about-feature__title панорамное остекление;
+	// END: home-about
+	.container.py-9
+		.ta-center
+			p.lh-lg.fz-m1.fw-l Установка элегантных и практичных металлопластиковых окон и дверей — естественное решение современного домовладельца. Эстетичное и надежное остекление всего здания существенно преображает дом, поэтому реализовать его каждому хозяину хочется максимально качественно, а это невозможно без участия опытных профессионалов с серьезной технической базой.
+	.whywe.container
+		.h.h_big Для решения подобных задач стоит <br> обратиться к нам, когда вам требуется
+		.row.whywe-icons.justify-content-center
+			mixin whywe-item(ico,name)
+				.col-6.col-sm-4.col-md
+					.whywe-item(role="navItem")
+						.whywe-item__ico: i.icm(class=ico)
+						.whywe-item__name=name
+			+whywe-item('icm-sun-icon','Теплоизоляция и защита помещений от внешних шумов')
+			+whywe-item('icm-balk','Установка окон и дверей оригинальной конфигурации (арки, трапеции, круги)')
+			+whywe-item('icm-window2','Замена старых деревянных рам стильными стеклопакетами')
+			+whywe-item('icm-like','Качественное остекление новой частной постройки')
+			+whywe-item('icm-window','Индивидуальное декоративное оформление')
+			+whywe-item('icm-car','Быстрое изготовление и доставка')
+		.row.mb-9
+			.col-12
+				.swiper-container.whywe-body
+					.swiper-wrapper
+						-for(var i=0;i<7;i++)
+							.swiper-slide
+								.whywe-desc(role="bodyItem")
+									.whywe-desc__title=i
+										| Гарантия на окна 5 лет
+									.whywe-desc__text Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+		.row
+			.col-12
+				p.lh-default.fz-m Когда речь идет об установке стандартных окон для утепления и шумоизоляции жилья, мы тоже придем на помощь, предложив максимально эффективное решение. Универсальный теплоэффективный стеклопакет, считающийся пока новейшей разработкой, способен не только избавить хозяев от лишних затрат на отопление, но и сделать помещение светлей за счет уникальных свойств высокопрозрачного стекла. Свет, тепло и тишина гарантируются, а лаконичная эстетика дизайна радует глаз. Белые металлопластиковые окна уже относят к классике, и их изготовление у нас занимает не более 3−5 дней. Благодаря нашей современной технической базе возможна и ламинация как с одной так и с двух сторон, имитирующая натуральное дерево, в том числе и окрашенное ПВХ в массе. На изготовление конструкций на основе ламинированного профиля выбранной заказчиком расцветки и фактуры требуется чуть больше времени — от 10 дней, зато декоративный эффект в интерьере при правильном подборе тона оказывается поистине восхитительным.
+	.zamer-callback
+		.container
+			.row.align-items-end.flex-nowrap
+				.col.zamer-callback__text
+					.zamer-callback__title.h.h_big.mb-2 Хотите заказать остекленение окон в коттеджи или доме?
+					.zamer-callback__desc.mb-3 Выбрать подходящий профиль для остекления дома или квартиры помогут Вам опытные специалисты компании «МАКСИ-ОКНА». Получите у нашего менеджера Быстрый и честный расчет окон по телефону (4832) 630-430; 8-910-333-32-29 или воспользуйтесь специальной формой на сайте для бесплатного вызова замерщика.
+					a(href="#").btn.btn_primary Вызвать замерщика
+				.col-auto.d-none.d-md-block: img(src="img/zamer-callback.jpg", alt="").zamer-callback__image

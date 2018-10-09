@@ -2,14 +2,14 @@ extends _template
 
 block main
 	.calc
-		.container.py-9
+		.container.py-4.py-sm-9
 			form(action="")
 				.h.h_big.ta-left Калькулятор пластиковых окон
 				.calc-step
 					.calc-step__title 1. Выберите тип окна
-					.calc-step__body
+					.calc-step__body.row
 						mixin calcType(img, name)
-							.calc-col.mr-2: label.calc-type
+							.col-6.col-md-auto.mb-2: label.calc-type
 								.calc-type__image: img(src=img, alt="").calc-type__img
 								.calc-type__name
 									.form-label

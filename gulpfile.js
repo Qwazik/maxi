@@ -33,7 +33,8 @@ var path = {
 	build: {
 		pug: buildPath+'/',
 		js: {
-			common: buildPath+'/js/'
+			common: buildPath+'/js/',
+			otherlibs: buildPath+'/libs/'
 		},
 		css: buildPath+'/css/',
 		fonts: buildPath+'/fonts/',
@@ -43,7 +44,8 @@ var path = {
 	src: {
 		pug: srcPath+'/pug/!(_)*.pug',
 		js: {
-			common: srcPath+'/js/**/*'
+			common: srcPath+'/js/**/*',
+			otherlibs: srcPath+'/otherlibs/**/*'
 		},
 		css: srcPath+'/scss/**/*.scss',
 		fonts: srcPath+'/fonts/**/*',
@@ -57,6 +59,7 @@ var path = {
 		includes: srcPath+'/pug/includes/*.pug',
 		js: {
 			common: srcPath+'/js/**/*.js',
+			otherlibs: srcPath+'/otherlibs/**/*'
 		},
 		css: srcPath+'/scss/**/*.scss',
 		fonts: srcPath+'/fonts/**/*',
@@ -142,6 +145,23 @@ gulp.task('build:js', function(){
 			})
 		}))
 		.pipe(gulp.dest(path.build.js.common))
+		.pipe(browserSync.stream());
+});
+
+/*-------------------------------------------------*/
+/*  otherlibs
+/*-------------------------------------------------*/
+gulp.task('build:otherlibs', function(){
+	return gulp.src(path.src.js.otherlibs, {since: gulp.lastRun('build:otherlibs')})
+		.pipe(plumber({
+			errorHandler: notify.onError(function(err){
+				return {
+					title: 'otherlibs',
+					message: err.message
+				}
+			})
+		}))
+		.pipe(gulp.dest(path.build.js.otherlibs))
 		.pipe(browserSync.stream());
 });
 
@@ -278,7 +298,7 @@ gulp.task('build:sprite', function (callback) {
 /*-------------------------------------------------*/
 gulp.task('clean', function(callback){
 	cached.caches = {};
-	del([buildPath+'/*', '!assets/libs']).then(paths => {
+	del([buildPath+'/*', '!'+buildPath+'/libs']).then(paths => {
     	callback();
     });
 	
@@ -291,7 +311,7 @@ gulp.task('clean', function(callback){
 	    	callback();
 	    });
 	}else{
-		del([buildPath+'/*', '!assets/libs']).then(paths => {
+		del([buildPath+'/*', '!'+buildPath+'/libs']).then(paths => {
 	    	callback();
 	    });
 	}
@@ -312,6 +332,7 @@ gulp.task('build', gulp.parallel(
 	'build:pug',
 	'build:css',
 	'build:js',
+	'build:otherlibs',
 	'build:fonts',
 	'build:php',
 	'build:html',
@@ -337,6 +358,7 @@ gulp.task('watch', function(){
 	gulp.watch(path.watch.includes, gulp.series('build:includes'));
 	gulp.watch(path.watch.css, gulp.series('build:css'));
 	gulp.watch(path.watch.js.common, gulp.series('build:js'));
+	gulp.watch(path.watch.js.common, gulp.series('build:otherlibs'));
 	gulp.watch(path.watch.icons, gulp.series('build:sprite'))
 		.on('change', function(){
 			browserSync.reload();
