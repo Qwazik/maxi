@@ -1,7 +1,7 @@
 $(function(){
   var DOM = {
     videos: '.videos',
-    categoryL: '.category-l',
+    categoryL: '.category-l, .services',
     homeSlider: '.home-slider',
     partnersSlider: '.brands__list .swiper-container',
     reviewsSlider: '.reviews .swiper-container',
@@ -155,12 +155,198 @@ $(function(){
 
   /*-- START: calc --*/
   var CALC = (function(){
+    var cnt = '.home-products';
+    var amountSelector = $(cnt).find('[role="amount"]');
+    var amount = 0;
+    var orderBtn = $(cnt).find('[rule="order"]');
+    //1: Одностворчатое
+    //2: Двухстворчатое
+    //3: Трехстворчатое
+    //4: Балконный выход
+    //5: Лоджии
+    //6: Дополнительно
+    var priceScheme = {
+      1:{
+        0:2100,
+        1:4700
+      },
+      2:{
+        0:4000,
+        1:6700,
+        2:8800
+      },
+      3:{
+        1:8700,
+        2:10900
+      },
+      4:{
+        1:8400,
+        2:11000
+      },
+      5:{
+        1:15000,
+        2:15000
+      },
+      6:{
+        0:0,
+        1:2000,
+        2:4200
+      },
+    };
+    
+    orderBtn.hover(function(){
+      $(cnt).find('.home-products-total__tip').fadeIn();
+    },function(){
+      $(cnt).find('.home-products-total__tip').fadeOut();
+    });
+
+    orderBtn.click(function(){
+      $.fancybox.open('<b>'+amount+'</b>');
+      return false;
+    });
+ 
+    function initWindow(window){
+      
+      if(window.find('[role="addService"]').length){
+        initAddService(window);
+        return false;
+      }
+      
+      var id = window.data('id');
+      var controlsElement = window.find('[role="controls"]');
+      var price = window.find('[role="price"]');
+      var folds = window.find('[role="folds"]');
+      var minFolds = Object.keys(priceScheme[id])[0];
+      var maxFolds = Object.keys(priceScheme[id])[Object.keys(priceScheme[id]).length-1];
+      
+
+
+      var addPrice = window.find('[role="addPrice"]');
+      var removePrice = window.find('[role="removePrice"]');
+      
+      if(!id) {
+        console.warn('Не указан ID окна', window[0]);
+        return false;
+      }
+      
+      
+      var controls = new Controls(controlsElement, minFolds, maxFolds);
+     
+
+      folds.text(controls.val);
+      price.text(priceScheme[id][controls.val]);
+      disableBtns(controls.val, minFolds, maxFolds, controlsElement.find('button'));
+
+      controlsElement.find('button').click(function(){
+        if($(this).is('[role="minus"]')) controls.minus();
+        if($(this).is('[role="plus"]')) controls.plus();
+        folds.text(controls.val);
+        price.text(priceScheme[id][controls.val]);
+        disableBtns(controls.val, minFolds, maxFolds, controlsElement.find('button'));
+        if(controls.val && window.find('[role="tip"]').is(':visible')) window.find('[role="tip"]').fadeOut();
+      });
+
+      addPrice.click(function(){
+        window.addClass('added')
+        setAmount(priceScheme[id][controls.val]);
+        controlsElement.find('button').attr('disabled','disabled')
+        return false;
+      });
+
+      addPrice.mouseenter(function(){
+        if(controls.val === 0) window.find('[role="tip"]').fadeIn();
+      });
+
+      removePrice.click(function(){
+        if(!window.is('.added')) return false;
+        window.removeClass('added')
+        setAmount(priceScheme[id][controls.val], '-');
+        controlsElement.find('button').removeAttr('disabled')
+        return false;
+      });
+    }
+
+    function initAddService(window){
+      var id = window.data('id');
+      var mainPriceVal = 0;
+      var mainPrice = window.find('[role="price"]');
+      var addPrice = window.find('[role="addPrice"]');
+      var removePrice = window.find('[role="removePrice"]');
+      mainPrice.text(mainPriceVal);
+      window.find('[role="addService"]').each(function(){
+        var input = $(this).find('[role="addServiceInput"]');
+        var price = $(this).find('[role="addServicePrice"]');
+        var serviceId = $(this).data('service');
+        price.text(priceScheme[id][serviceId]);
+        
+        input.change(function(){
+          if($(this).is(':checked')) mainPriceVal+=priceScheme[id][serviceId];
+          if(!$(this).is(':checked')) mainPriceVal-=priceScheme[id][serviceId];
+          
+          mainPrice.text(mainPriceVal);
+        });
+      });
+
+      addPrice.click(function(){
+        window.addClass('added')
+        setAmount(mainPriceVal);
+        return false;
+      });
+
+      removePrice.click(function(){
+        if(!window.is('.added')) return false;
+        window.removeClass('added')
+        setAmount(mainPriceVal, '-');
+        return false;
+      });
+    }
+
+    function setAmount(val=0, operation="+"){
+      (operation == '-')?amount-=val:amount+=val;
+      amountSelector.text(amount);
+    }
+
+    function Controls(controls, min,max){
+      this.element = controls;
+      this.val = +min;
+      this.min = +min;
+      this.max = +max;
+      this.plus = function(){
+        if(this.val>=this.max) return false;
+        this.val++;
+      }
+      this.minus = function(){
+        if(this.val<=this.min) return false;
+        this.val--;
+      }
+    }
+
+    function disableBtns(val, min, max, btns){
+      btns.each(function(){
+        switch($(this).attr('role')){
+          case 'minus': {
+            if(val<=min) $(this).attr('disabled','disabled');
+            else $(this).removeAttr('disabled');
+          };break;
+          case 'plus': {
+            if(val>=max) $(this).attr('disabled','disabled');
+            else $(this).removeAttr('disabled');
+          };break;
+        }
+      });
+    }
+
     return {
       init: function(){
-
+        $(cnt).find('.home-product').each(function(){
+          if($(this).length) initWindow($(this));
+        });
+        setAmount();
       }
     }
   }());
+
+  CALC.init();
   /*-- END: calc --*/
   
 
@@ -267,6 +453,7 @@ $(function(){
 
     function setImage(src){
       backgroundEl.css('background-image', 'url('+src+')');
+      backgroundEl.addClass('hovered');
     }
 
     return {
@@ -277,6 +464,10 @@ $(function(){
             setImage($(this).data('image'));
             $(cnt).find('[role="section"]').removeClass('active');
             $(this).addClass('active');
+          });
+
+          $(this).mouseleave(function(){
+            backgroundEl.removeClass('hovered');
           });
         });
       }
@@ -327,13 +518,14 @@ $(function(){
       }
     }
   }());
-
-  
   /*-- END: spoiler --*/
   
 
-  
   /*-- START: init --*/
+  AOS.init({
+    duration: 500,
+    once: true
+  });
   if($(DOM.videos).length) VIDEOS.init();
   if($(DOM.categoryL).length) CATEGORYL.init();
   if($(DOM.scrollbar).length) $('.js-scrollbar').perfectScrollbar();
@@ -365,14 +557,6 @@ function init() {
     }, {
         preset: 'islands#blueCircleDotIconWithCaption',
     });
-
-    myMap.margin.addArea({
-      left: 0,
-      top: 0,
-      width: $('.contacts-place').width(),
-      height: '100%'
-    });
-    console.log(myMap.margin.getMargin()); 
     myMap.geoObjects.add(myPlacemark);
     
 }
