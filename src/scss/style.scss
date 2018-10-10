@@ -69,7 +69,17 @@ body{
 		line-height: 1;
 	}
 	&__input:checked + &__ico{
-		&:after{content: '';}
+		&:not(&_slim):after{content: '';}
+		&_slim{
+			
+			&:before{
+				content: '';
+				font-family: icomoon;
+				position: absolute;
+				bottom: 0.5em;
+				left: 0.3em;
+			}
+		}
 	}
 	&__ico{
 		display: inline-block;
@@ -79,6 +89,12 @@ body{
 			content: '';
 			font-family: icomoon;
 			font-size: 20px;
+		}
+		&_slim{
+			color: #407DC7;
+			&:after{
+				content: '';
+			}
 		}
 	}
 	
@@ -191,6 +207,7 @@ body{
 }
 
 .tip{
+	display: none;
 	&-container{
 		position: relative;
 	}
@@ -728,7 +745,7 @@ body{
 
 /*-- START: home products --*/
 .home-products{
-
+	
 	&__footer{
 		@extend .bg-muted;
 		border-radius: 2rem;
@@ -747,11 +764,42 @@ body{
 		}
 	}
 }
+
 .home-product{
 	border: .6rem solid #DBDADA;
-	border-radius: 2rem;
-	padding: 3.2rem;
-	margin-bottom: 4rem;
+    border-radius: 2rem;
+    padding: 3.2rem;
+    margin-bottom: 4rem;
+    height: calc(100% - 4rem);
+    display: flex;
+    flex-direction: column;
+	justify-content: space-around;
+	&[data-id="6"].added{
+		.home-product__body{
+			position: relative;
+			&:after{
+				content: '';
+				background: rgba(white,.5);
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+
+			}
+		}
+	}
+	&.added &__footer-add{
+		display: none;
+	}
+	&.added &__footer-del{
+		display: block;
+	}
+	&__add{
+		.form-label__name{
+			font-size: 1.8rem;
+		}
+	}
 	&:hover{
 		border-color: $primary;
 	}
@@ -861,6 +909,7 @@ body{
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			display: none;
 		}
 	}
 	&__del{
@@ -1090,10 +1139,21 @@ body{
 /*-- START: category l --*/
 .category-l{
 	padding: 12rem 0;
+
 	&__container{
 		border-radius: 2.5rem;
 		overflow: hidden;
-		background-size: 100% auto;
+		background-size: cover;
+		&.hovered{
+			.category-l-item__name{
+				background: transparent;
+				color: white;
+				text-shadow: 0 0 1px black, 1px 0 1px black;
+			}
+			.category-l-item{
+				background: transparent !important;
+			}
+		}
 	}
 	.col{
 		&:not(:first-child) .category-l-item{border-left: 1px solid $secondary;}
@@ -1103,7 +1163,9 @@ body{
 		display: flex;
 		align-items: flex-end;
 		cursor: pointer;
-		transition: all .3s;
+		
+		background-size: cover;
+		background-position: center center;
 		&.active,&:hover{
 			background: rgba(black,.25);
 		}
@@ -1115,6 +1177,7 @@ body{
 			font-size: 3.6rem;
 			line-height: 1;
 			width: 100%;
+			transition: all .3s;
 		}
 	}
 }
@@ -1489,6 +1552,10 @@ body{
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		padding: 0.5rem;
+		img{
+			max-height: 100%;
+		}
 	}
 	&__text{
 		font-size: 2rem;
@@ -1554,9 +1621,23 @@ body{
 
 /*-- START: category --*/
 .services{
-	
+
 	&__row{
 		flex-wrap: wrap;
+		background-size: cover;
+		@media screen and (min-width: 992px){
+		&.hovered{
+			.services__image,
+			.services__name{
+				background: transparent !important;
+				color: white;
+				text-shadow: 0 0 1px black, 0 1px 1px black;
+			}
+			.services__col{
+				box-shadow:inset 0 0 0px 1px rgba(white,.5);
+			}
+		}
+	}
 	}
 	&__col{
 		min-width: 20%;
@@ -1564,16 +1645,6 @@ body{
 	&__item{
 		text-decoration: none;
 		color: inherit;
-	}
-	
-	&__image{
-		height: 39rem;
-		height: 20.3vw;
-		background-size: cover;
-		background-position: right center;
-		transition: background-size .3s ease-in;
-		background-position: center center;
-		position: relative;
 		&:before{
 			transition: opacity .2s;
 			content: '';
@@ -1590,6 +1661,17 @@ body{
 				opacity: 0.2;
 			}
 		}
+	}
+	
+	&__image{
+		height: 39rem;
+		height: 20.3vw;
+		background-size: cover;
+		background-position: right center;
+		transition: background-size .3s ease-in;
+		background-position: center center;
+		position: relative;
+
 
 	}
 	&__name{
@@ -2434,3 +2516,26 @@ body{
 }
 
 /*-- END: animations --*/
+
+// .modals{
+// 	position: fixed;
+// 	left: 0;
+// 	top: 0;
+// 	width: 100%;
+// 	height: 100%;
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	background: grey;
+// 	z-index: 10;
+// }
+
+.modal{
+	background: white;
+	border-radius: 0.8rem;
+	padding: 3.8rem;
+	padding-right: 6.4rem;
+	&__header{
+		margin-bottom: 3.8rem;
+	}
+}

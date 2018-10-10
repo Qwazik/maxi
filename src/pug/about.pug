@@ -29,10 +29,10 @@ block main
 
 
 	.services.mb-9
-		.row.no-gutters.services__row
+		.row.no-gutters.services__row(role="background")
 			mixin category_item(img,name)
 				.col.services__col
-					a(href="#").services__item
+					a(href="#").services__item(role="section" data-image=img)
 						.services__image(style="background-image: url("+img+")")
 						.services__name=name
 			+category_item('img/image2.jpg','Пластиковые окна и двери')

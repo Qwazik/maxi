@@ -6,7 +6,7 @@
             .reviews__list.swiper-wrapper
                 -for(var i=0;i<5;i++)
                     .reviews__item.swiper-slide
-                        .review
+                        .review(data-aos="fade-up" data-aos-delay=i+'00')
                             .review__photo: img(src="img/review.jpg", alt="")
                             .review__name Галина Власенко
                             .review__desc Установили окна за три часа. Аккуратно убрали все после себя, вынесли мусор.
